@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>GIFTR</title>
+	<link href="css/main.css" rel="stylesheet"/>
+	<script src="js/app.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<!-- container for all pages -->
+
+		<section data-role="page" id="people-list">
+			<h2>People <button class="btnAdd">+</button></h2>
+			<p class="details">
+			Here are all the people for which <em>you</em> buy gifts.
+			</p>
+			<ul data-role="listview">
+				<!--
+				list of items to be dynamically added
+				single-tap to add gift for person through gifts-for-person page
+				double-tap to remove person
+				-->
+			</ul>
+		</section>
+
+		<section data-role="page" id="occasion-list">
+			<h2>Occasions <button class="btnAdd">+</button></h2>
+			<p class="details">
+			Here is the list of occasions when <em>you</em> buy gifts.
+			</p>
+			<ul data-role="listview">
+				<!--
+				list of items to be dynamically added
+				single-tap to add gift for occasion through gifts-for-occasion page
+				double-tap to remove occasion
+				-->
+			</ul>
+		</section>
+
+		<section data-role="page" id="gifts-for-person">
+			<h2>Gift Ideas <button class="btnAdd">+</button></h2>
+			<p class="details">
+			Here are all the gifts ideas for <span>PERSON</span> for all occasions.
+			</p>
+			<ul data-role="listview">
+				<!--
+				list of items to be dynamically added
+				single-tap gift idea to toggle purchased state for gift
+ 				double-tap gift idea to remove from list
+				-->
+			</ul>
+		</section>
+
+		<section data-role="page" id="gifts-for-occasion">
+			<h2>Gift Ideas <button class="btnAdd">+</button></h2>
+			<p class="details">
+			Here are all the gift ideas for <span>OCCASION</span> for all people.
+			</p>
+			<ul data-role="listview">
+				<!--
+				list of items to be dynamically added
+				single-tap gift idea to toggle purchased state for gift
+				double-tap gift idea to remove from list
+				-->
+			</ul>
+		</section>
+	</div>
+
+	<!-- always display the overlay between a page and modal -->
+	<div data-role="overlay">&nbsp;</div>
+
+	<!-- modal for adding an entry to person or occasion table -->
+	<div data-role="modal" id="add-person-occasion">
+		<h3>Title (new person | occasion)</h3>
+		<form>
+			<div class="formBox">
+				<input type="text" id="new-per-occ" value="" placeholder="" class=""/>
+			</div>
+			<div class="formBox">
+				<input type="button" class="btnCancel" value="CANCEL" />
+				<input type="button" class="btnSave" value="SAVE" />
+			</div>
+		</form>
+	</div>
+
+	<!-- modal for adding an entry to gift idea table. Requires a person or occasion plus the idea -->
+	<div data-role="modal" id="add-gift">
+		<h3>Title (new gift for person | occasion)</h3>
+		<form>
+			<div class="formBox">
+				<select id="list-per-occ">
+					<option value="0">Choose one</option>
+					<!-- list of options built from person list or occasion list -->
+				</select>
+			</div>
+			<div class="formBox">
+				<input type="text" id="new-idea" value="" placeholder="" class=""/>
+			</div>
+			<div class="formBox">
+				<input type="button" class="btnCancel" value="CANCEL" />
+				<input type="button" class="btnSave" value="SAVE" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

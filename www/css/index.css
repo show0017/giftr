@@ -1,0 +1,108 @@
+/*************************************
+        Defaults
+*************************************/
+
+*{
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+  font-family:'Open Sans', sans-serif;
+}
+h2{
+  font-size:1.6rem;
+  padding:1rem 0;
+}
+p{
+  font-size:1.0rem;
+  padding:1rem 0;
+}
+.wrapper{
+  width:100%;
+  height:100%;
+}
+/*************************************
+        Layout
+*************************************/
+[data-role=page]{
+  position:absolute;
+  z-index:5;
+  top:0;
+  left:0;
+  width:100%;
+  min-height:100%;
+  color:#eee;
+  background-color:#333;
+  padding:1rem;
+}
+[data-role=overlay]{
+  display: none;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:10;
+  height:100%;
+  width:100%;
+  background-color: rgba(0,0,0,0.82);
+}
+[data-role=modal]{
+  display:none;
+  position:fixed;
+  top:20%;
+  left:10%;
+  width: 80%;
+  z-index:15;
+  max-height:80%;
+  padding:5vh;
+  border:1px solid #333;
+  min-height:10%;
+  color:#fff;
+  background-color:#666;
+  box-shadow:1px 1px 2px rgb(0,0,0);
+}
+/*************************************
+        Forms
+*************************************/
+.formBox{
+  padding: 0.6rem 0;
+}
+input, select{
+  line-height: 1.6rem;
+  font-size: 1.2rem;
+  padding:0 1rem;
+  max-width:90%; /* to make them responsive */
+}
+.btn{
+  width:auto;
+}
+.narrow{
+  width:2rem;
+}
+.med{
+  width:10rem;
+}
+.wide{
+  width:25rem;
+}
+.xwide{
+  width:40rem;
+}
+/*************************************
+        Pages
+*************************************/
+[data-role=listview]{
+  list-style:none;
+}
+[data-role=listview] li{
+  font-size:1.2rem;
+  line-height:3rem;
+  height:3rem;
+  border:1px solid #000;
+  background-color:#ccc;
+  color:#333;
+  font-weight:300;
+  padding:0 1rem;
+  cursor:pointer;
+}
+/*************************************
+        Modals
+*************************************/
