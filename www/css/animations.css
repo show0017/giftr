@@ -1,0 +1,57 @@
+.pt-page-fade {
+	-webkit-animation: fade .6s ease both;
+	animation: fade .6s ease both;
+}
+
+.pt-page-fadeIn {
+	-webkit-animation: fadeIn 1s ease both;
+	animation: fadeIn 1s ease both;
+}
+
+.pt-page-moveFromLeft {
+	-webkit-animation: moveFromLeft .6s ease both;
+	animation: moveFromLeft .6s ease both;
+}
+
+
+
+.pt-page-moveFromRight {
+	-webkit-animation: moveFromRight .6s ease both;
+	animation: moveFromRight .6s ease both;
+}
+
+/********************************* keyframes **************************************/
+
+@-webkit-keyframes fade {
+	from { }
+	to { opacity: 0.1; }
+}
+@keyframes fade {
+	from { }
+	to { opacity: 0.1; }
+}
+
+@-webkit-keyframes fadeIn {
+	from {opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes fadeIn {
+	from { opacity: 0;}
+	to { opacity: 1; }
+}
+
+@-webkit-keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); }
+}
+@keyframes moveFromLeft {
+	from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
+
+@-webkit-keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); }
+}
+@keyframes moveFromRight {
+	from { -webkit-transform: translateX(100%); transform: translateX(100%); }
+}
+

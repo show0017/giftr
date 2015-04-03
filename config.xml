@@ -9,4 +9,12 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+
+	<platform name="ios">
+		<!-- allow the status bar to have its own set space as in iOS6. Setting StatusBarOverlaysWebview to false also allows a color to be applied to the background -->
+	    <preference name="StatusBarOverlaysWebView" value="false" />
+		<preference name="StatusBarBackgroundColor" value="#4A5219" />
+		<preference name="StatusBarStyle" value="lightcontent" />
+	</platform>
+
 </widget>

@@ -1,0 +1,372 @@
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+/* Clearfix
+============================================================ */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+/* Grid
+===============================================================*/
+.col-container{
+    width: 100%;
+}
+/************** Col - 2 *************/
+.col-2{
+    float: left;
+    width: 15%;
+    height: 4rem;
+}
+
+.col-2:last-child{
+    width: 85%;
+}
+
+/************** Col - 3 *************/
+.col-3{
+    float: left;
+    width: 15%;
+}
+
+.col-3:nth-child(2){
+    width: 70%;
+}
+
+.col-3:nth-child(3){
+    padding-right: 5%;
+}
+
+/*************** Col - 4 ************/
+.col-4{
+  float: left;
+}
+.col-4:nth-child(1){
+    width: 10%;
+}
+
+.col-4:nth-child(2){
+    width: 25%;
+}
+
+.col-4:nth-child(3){
+    width: 52%;
+}
+.col-4:last-child{
+  width: 13%;
+  padding-right: 3%;
+}
+
+
+/* Common
+===============================================================*/
+html{
+  width:100%;
+  height:100%;
+  /*background: hsl(69,54%,21%);*/
+  font-family: Helvetica, sans-serif; /* First Font-Family Stack*/
+ }
+
+body,
+.st-container{
+    /* Let the body fills the whole page vertically*/
+    height: 100%;
+}
+
+/* This class is applied on body tag so that root font-size is set according to different screen
+sizes. Then any text paragraph can be set using rem unit. */
+.flexible-font{
+    font-size: 5vmin;
+}
+
+p{
+    font-size: 1.2rem;
+}
+
+h2{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 1.7rem;
+}
+
+.vertical-center{
+    position: relative;
+    top: 50%;
+    -webkit-transform:translateY(-50%);
+    transform: translateY(-50%);
+
+}
+
+.horizontal-align{
+  padding-left: 3%;
+}
+
+/* Sticky Header styling
+===============================================================*/
+header{
+    position: fixed;
+    top:0px;
+    background-color: hsl(69,54%,21%);
+    color: hsl(69,45%,82%);
+    height: 60px;
+    z-index: 10;
+    transition: 0.5s margin ease;
+}
+
+[data-role="header"] h2{
+  text-shadow: 3px 2px 2px #475500;
+  -webkit-text-stroke: 1px #475500;
+  text-align: center;
+  letter-spacing:0.05rem;
+
+}
+
+header .main-screen-title{
+  margin-left: 25px;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-align: left;
+}
+
+header .prev-screen-title{
+  color: hsla(69, 100%, 73%, 0.93);
+  margin-left: 4px;
+
+}
+/* SVG Icons styling
+=============================================================*/
+svg[data-icon-name]{
+    width: 32px;
+    height: 32px;
+}
+
+svg[data-icon-name] g *{
+    fill: hsl(69,45%,82%);
+}
+
+svg[data-icon-name="add"] g .outer-line{
+    stroke: hsl(69,45%,82%);
+}
+
+svg[data-icon-name="add"] g .inner-line{
+    stroke: hsl(69,54%,21%);
+}
+
+svg[data-icon-name="occaisions"] g .string{
+    stroke: hsl(69,45%,82%);
+    fill: none;
+}
+
+svg[data-icon-name="occaisions"] g #moon{
+    fill: hsl(69,54%,21%);
+}
+
+svg[data-icon-name="back"]{
+    width: 24px;
+    height: 24px;
+}
+
+svg[data-icon-name="back"] g *{
+  fill : hsla(69, 100%, 73%, 0.93);
+}
+
+svg[data-icon-name="gift"]{
+    box-sizing: content-box;
+    padding-bottom:7px;
+}
+
+svg[data-icon-name="gift"] g *{
+    fill: hsl(69,54%,21%);
+}
+
+/* Common Pages styling
+=============================================================*/
+[data-role="page"]{
+    overflow: hidden;
+    visibility: hidden;
+    /*display: none;*/
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    color: hsl(69,54%,21%);
+    height: 100%; /* map canvas must have height to show the map. Therefore, this property must be set. */
+    /*min-height: 100%;*/
+    width: 100%;
+    z-index: 0;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+[data-role="listview"]{
+  list-style:none;
+}
+
+[data-role="listview"] li{
+  font-size:1.2rem;
+  line-height:3.5rem;
+  height:3.5rem;
+  border-bottom:1px solid hsl(69,54%,21%);
+  background-color: hsl(69, 48%, 71%);
+  font-weight:300;
+  cursor:pointer;
+}
+
+[data-role="listview"] li:nth-child(even){
+    background-color: white;
+}
+
+[data-role="listview"] li:hover{
+    background-color: hsla(69, 54%, 21% , 0.5);
+}
+
+.pt-page-current{
+    visibility: visible;
+    /*display:block;*/
+ }
+
+.pt-page-ontop {
+  z-index: 999;
+}
+
+.active-page{
+    opacity: 1;
+}
+
+.show{
+/*  display:block;*/
+    visibility: visible;
+}
+.hide{
+  display:none;
+}
+
+/* Sticky Footer styling
+===============================================================*/
+footer {
+    color: hsl(69,45%,82%);
+    background-color: hsl(69,54%,21%);
+    /* Adjust position of footer with respect to main content div.*/
+    position: fixed;
+    bottom: 0;
+    height: 60px; /* Same height as header*/
+    width: 100%;
+    z-index: 10;
+}
+
+/* Overlay and Modal window
+==================================================================*/
+[data-role="modal"]{
+
+}
+
+[data-role="overlay"]{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:15; /* Make it larger than z-index of both header and footer. */
+  height:100%;
+  width:100%;
+  background-color: rgba(0,0,0,0.82);
+}
+
+[data-role="modal-details"]{
+  position:fixed;
+  top:20%;
+  left:5%;
+  width: 85%;
+  z-index:20; /* Make it larger than z-index of overlay div so that contents can be display. */
+  max-height:80%;
+  padding:5vh;
+  border:1px solid #333;
+  min-height:10%;
+  color:#fff;
+  background-color: hsl(69,54%,21%);
+  box-shadow:1px 1px 2px rgb(0,0,0);
+  box-sizing: border-box;
+}
+
+
+[data-role="modal-details"] h4{
+    display: inline-block;
+    /*If inline-block in question has its overflow property set to OTHER THAN visible. Then
+    its bottom margin would be on the baseline of the line of containing box i.e.
+    make sure to balance the down pushing effect by setting overflow to anyvalue other than visible.*/
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+[data-role="modal-details"] p{
+    padding-left: 5px;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+/*************************************
+        Forms
+*************************************/
+.formBox{
+  padding: 0.6rem 0;
+}
+
+input {
+  /* Stop Safari Mobile from adding rounded corners to input buttons by default.*/
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+select{
+  -webkit-border-radius: 0;
+}
+
+input, select{
+  border: 0;
+
+  line-height: 1.6rem;
+  font-size: 1.2rem;
+  padding:0 1rem;
+  width:100%;
+  color: hsl(69,54%,30%);
+}
+
+.btn{
+    float: left;
+    width: 50%;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    outline: 1px solid hsl(69,54%,21%);
+    background-color: hsl(69,45%,82%);
+}
+
+.btn:first-child{
+    border-right: 1px solid hsl(69,54%,21%);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active{
+    background-color: hsl(69, 48%, 71%);
+}
