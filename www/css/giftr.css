@@ -125,6 +125,7 @@ h2{
 header{
     position: fixed;
     top:0px;
+    left: 0px;
     background-color: hsl(69,54%,21%);
     color: hsl(69,45%,82%);
     height: 60px;
@@ -205,7 +206,7 @@ svg[data-icon-name="gift"] g *{
     visibility: hidden;
     /*display: none;*/
     position: absolute;
-    top: 60px;
+    top: 0px;
     left: 0px;
     color: hsl(69,54%,21%);
     height: 100%; /* map canvas must have height to show the map. Therefore, this property must be set. */
@@ -223,6 +224,8 @@ svg[data-icon-name="gift"] g *{
 
 [data-role="listview"]{
   list-style:none;
+  position: relative;;
+  top: 60px;
 }
 
 [data-role="listview"] li{
@@ -236,7 +239,7 @@ svg[data-icon-name="gift"] g *{
 }
 
 [data-role="listview"] li:nth-child(even){
-    background-color: white;
+    background-color: hsla(69, 48%, 88% , 0.8);;
 }
 
 [data-role="listview"] li:hover{

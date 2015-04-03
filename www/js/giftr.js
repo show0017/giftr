@@ -136,18 +136,8 @@ var appClass = function(){
 			var currentPageId = document.URL.split("#")[1];
 			console.log("currentPageId is :"+ currentPageId);
 
-			var mainScreenHeader = document.querySelector('header.main-screen');
-			var title = mainScreenHeader.querySelector('h2');
-
-			var svgTag = mainScreenHeader.querySelector('svg');
-
-			/* create new instance of snap svg canvas. */
-			var snapCanvas = Snap(svgTag);
-
-			/* Remove the current svg group .*/
-			var group = svgTag.querySelector('g');
-			group.remove();
-
+			// var mainScreenHeader = document.querySelector('header.main-screen');
+			// var title = mainScreenHeader.querySelector('h2');
 
 			switch(currentPageId){
 				case "people":
@@ -164,13 +154,7 @@ var appClass = function(){
 					console.error("undefined page id");
 					return;
 			}
-
-			Snap.load("svg/"+destPageId+".svg", function(fragment){
-						var group = fragment.select( 'g' );
-						snapCanvas.append( group );
-					});
-			svgTag.setAttribute("data-icon-name", destPageId);
-			title.innerHTML = destPageId;
+			// title.innerHTML = destPageId;
 			doPageTransition(currentPageId, destPageId, outClass, inClass, false);
 		}
 

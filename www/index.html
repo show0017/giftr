@@ -16,7 +16,7 @@
 <!-- Header of main sections of the app.
 	This header structure of people/occaisions is typicall the same.
 	The only difference is svg and h2 title-->
-	<header data-role="header" class="col-container clearfix main-screen">
+<!-- 	<header data-role="header" class="col-container clearfix main-screen">
         <div class="col-3 vertical-center horizontal-align">
             <svg data-icon-name="people" viewBox="0 0 216 216"></svg>
         </div>
@@ -28,7 +28,7 @@
         <div class="col-3 vertical-center">
             <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
         </div>
-    </header>
+    </header> -->
 
 	<!-- Header of detailed view screen.
 	This header structure of gifts per person/occaision is typically the same. The
@@ -52,6 +52,19 @@
 
 	<!-- container for all pages -->
 	<section data-role="page" id="people" class="pt-page-current">
+		<header data-role="header" class="col-container clearfix main-screen">
+	        <div class="col-3 vertical-center horizontal-align">
+	            <svg data-icon-name="people" viewBox="0 0 216 216"></svg>
+	        </div>
+
+	        <div class="col-3 vertical-center">
+	            <h2>People</h2>
+	        </div>
+
+	        <div class="col-3 vertical-center">
+	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
+	        </div>
+    	</header>
 		<ul data-role="listview" >
 			<!--
 			TODO: list of items to be dynamically added
@@ -67,6 +80,19 @@
 	</section>
 
 	<section data-role="page" id="occaisions">
+		<header data-role="header" class="col-container clearfix main-screen">
+	        <div class="col-3 vertical-center horizontal-align">
+	            <svg data-icon-name="occaisions" viewBox="0 0 216 216"></svg>
+	        </div>
+
+	        <div class="col-3 vertical-center">
+	            <h2>Occaisions</h2>
+	        </div>
+
+	        <div class="col-3 vertical-center">
+	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
+	        </div>
+	    </header>
 		<ul data-role="listview">
 			<!--
 			TODO: list of items to be dynamically added
