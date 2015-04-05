@@ -200,6 +200,11 @@ svg[data-icon-name="gift"] g *{
     fill: hsl(69,54%,21%);
 }
 
+#add{
+    transform-origin: 108px 108px;
+    -webkit-transform-origin: 108px 108px;
+}
+
 /* Overlay and Modal window
 ==================================================================*/
 [data-role="modal"]{

@@ -320,7 +320,8 @@ var appClass = function(){
 				pages[destPageId].classList.add("pt-page-fadeIn");
 				loadDynamicContents(destPageId);
 				setTimeout(function(){
-						pages[destPageId].classList.remove("pt-page-fadeIn");
+					pages[destPageId].classList.remove("pt-page-fadeIn");
+					rotateAddButton(destPageId);
 				}, 1000); /* 1sec is the animation duration. */
 				history.replaceState(null, null, "#"+destPageId);
 			}else{
@@ -350,7 +351,7 @@ var appClass = function(){
 					Exception case: when displaying modal window, make sure to keep source page in the background*/
 					pages[srcPageId].className = outClass?"":"pt-page-current";
 					pages[destPageId].className = "pt-page-current";
-
+					rotateAddButton(destPageId);
 					// pages[destPageId].classList.remove(inClass.split(" ")[0]);
 					// pages[destPageId].classList.remove(inClass.split(" ")[1]);
 				}, animationDuration + animationDelay); /* 0.6sec is the animation duration. */
@@ -440,6 +441,13 @@ var appClass = function(){
 			return currentUserId;
 		}
 
+		var rotateAddButton = function(pageId){
+			var addBtn = pages[pageId].querySelector('svg[data-icon-name="add"]');
+			if(addBtn){
+				addBtn.classList.add("rotate");
+				setTimeout(function(){addBtn.classList.remove("rotate");}, 1000);
+			}
+		}
 		return {
 					init : init,
 					handleBackButton: handleBackButton,
