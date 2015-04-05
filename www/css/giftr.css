@@ -151,6 +151,7 @@ header .main-screen-title{
 header .prev-screen-title{
   color: hsla(69, 100%, 73%, 0.93);
   margin-left: 4px;
+  font-size: 1rem;
 
 }
 /* SVG Icons styling
@@ -172,12 +173,12 @@ svg[data-icon-name="add"] g .inner-line{
     stroke: hsl(69,54%,21%);
 }
 
-svg[data-icon-name="occaisions"] g .string{
+svg[data-icon-name="occasions"] g .string{
     stroke: hsl(69,45%,82%);
     fill: none;
 }
 
-svg[data-icon-name="occaisions"] g #moon{
+svg[data-icon-name="occasions"] g #moon{
     fill: hsl(69,54%,21%);
 }
 
@@ -199,95 +200,20 @@ svg[data-icon-name="gift"] g *{
     fill: hsl(69,54%,21%);
 }
 
-/* Common Pages styling
-=============================================================*/
-[data-role="page"]{
-    overflow: hidden;
-    visibility: hidden;
-    /*display: none;*/
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    color: hsl(69,54%,21%);
-    height: 100%; /* map canvas must have height to show the map. Therefore, this property must be set. */
-    /*min-height: 100%;*/
-    width: 100%;
-    z-index: 0;
-
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-}
-
-[data-role="listview"]{
-  list-style:none;
-  position: relative;;
-  top: 60px;
-}
-
-[data-role="listview"] li{
-  font-size:1.2rem;
-  line-height:3.5rem;
-  height:3.5rem;
-  border-bottom:1px solid hsl(69,54%,21%);
-  background-color: hsl(69, 48%, 71%);
-  font-weight:300;
-  cursor:pointer;
-}
-
-[data-role="listview"] li:nth-child(even){
-    background-color: hsla(69, 48%, 88% , 0.8);;
-}
-
-[data-role="listview"] li:hover{
-    background-color: hsla(69, 54%, 21% , 0.5);
-}
-
-.pt-page-current{
-    visibility: visible;
-    /*display:block;*/
- }
-
-.pt-page-ontop {
-  z-index: 999;
-}
-
-.active-page{
-    opacity: 1;
-}
-
-.show{
-/*  display:block;*/
-    visibility: visible;
-}
-.hide{
-  display:none;
-}
-
-/* Sticky Footer styling
-===============================================================*/
-footer {
-    color: hsl(69,45%,82%);
-    background-color: hsl(69,54%,21%);
-    /* Adjust position of footer with respect to main content div.*/
-    position: fixed;
-    bottom: 0;
-    height: 60px; /* Same height as header*/
-    width: 100%;
-    z-index: 10;
-}
-
 /* Overlay and Modal window
 ==================================================================*/
 [data-role="modal"]{
-
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index:15; /* Make it larger than z-index of both header and footer. */
 }
 
 [data-role="overlay"]{
-  position:fixed;
+  position:absolute;
   top:0;
   left:0;
   z-index:15; /* Make it larger than z-index of both header and footer. */
@@ -359,7 +285,7 @@ input, select{
     float: left;
     width: 50%;
     height: 2.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     outline: 1px solid hsl(69,54%,21%);
     background-color: hsl(69,45%,82%);
 }
@@ -373,3 +299,86 @@ input, select{
 .btn:active{
     background-color: hsl(69, 48%, 71%);
 }
+
+/* Common Pages styling
+=============================================================*/
+[data-role="page"]{
+    overflow: hidden;
+    visibility: hidden;
+    /*display: none;*/
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: hsl(69,54%,21%);
+    height: 100%;
+    /*min-height: 100%;*/
+    width: 100%;
+    z-index: 0;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.page-internal-wrapper{
+  position: relative;;
+  top: 60px;
+}
+
+[data-role="listview"]{
+  list-style:none;
+}
+
+[data-role="listview"] li{
+  font-size:1.2rem;
+  line-height:3.5rem;
+  height:3.5rem;
+  border-bottom:1px solid hsl(69,54%,21%);
+  background-color: hsl(69, 48%, 71%);
+  font-weight:300;
+  cursor:pointer;
+}
+
+[data-role="listview"] li:nth-child(even){
+    background-color: hsla(69, 48%, 88% , 0.8);;
+}
+
+[data-role="listview"] li:hover{
+    background-color: hsla(69, 54%, 21% , 0.5);
+}
+
+.pt-page-current{
+    visibility: visible;
+ }
+
+.pt-page-ontop {
+  z-index: 999;
+}
+
+.active-page{
+    opacity: 1;
+}
+
+.show{
+    visibility: visible;
+}
+
+.hide{
+  display:none;
+}
+
+/* Sticky Footer styling
+===============================================================*/
+footer {
+    color: hsl(69,45%,82%);
+    background-color: hsl(69,54%,21%);
+    /* Adjust position of footer with respect to main content div.*/
+    position: fixed;
+    bottom: 0;
+    height: 60px; /* Same height as header*/
+    width: 100%;
+    z-index: 10;
+}
+

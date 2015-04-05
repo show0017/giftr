@@ -1,4 +1,5 @@
 var appClass = function(){
+
 	var PAGE_LOADED_BIT_INDEX = 0;
 	var DEVICE_READY_BIT_INDEX = 1;
 	var MAXIMUM_NUMBER_OF_DISPLAYED_CONTACTS = 12;
@@ -72,159 +73,190 @@ var appClass = function(){
 			/* save pages into js object where the key is the same as the given page id*/
 			for(var i=0; i< numPages; i++){
 				pages[pagesArray[i].getAttribute("id")] = pagesArray[i];
+
+				/* Each page contains a list view.
+				Add tap/double tap event listeners to the corresponding list view */
+				var listView = pagesArray[i].querySelector('ul[data-role="listview"]');
+
+				/* Relate tap and double tap events to list view of contacts using hammer API */
+				var listHammerManager = new Hammer.Manager(listView);
+				listHammerManager.myParam = i;
+
+				/* Create specifications for single tap and double tap events. */
+				var doubleTapEvent = new Hammer.Tap({ event: 'doubletap', taps: 2 }) ;
+				var singleTapEvent = new Hammer.Tap({ event: 'singletap', domEvents:true });
+
+				/* Add single/double tap events to hammer manager.*/
+				listHammerManager.add( doubleTapEvent );
+				listHammerManager.add( singleTapEvent);
+
+				/* we want to recognize single/double tap simulatenously. Otherwise single tap handler will be always triggered during double tap event.
+				So a double tap will be detected even a single tap has been recognized.*/
+				doubleTapEvent.recognizeWith('singletap');
+
+				/* we only want to trigger a tap, when we don't have detected a doubletap. */
+				singleTapEvent.requireFailure('doubletap');
+
+				/* register handler for single/double tap events. */
+				listHammerManager.on("doubletap", handleDoubleTap );
+				listHammerManager.on("singletap", handleSingleTap);
 			}
-			delete pagesArray; //Free the memory to increase performance.
+			delete pagesArray; //Free the memory
+
+			/* Add modal to the pages array to be capable of applying page transitions for modal windows as well. */
+			var modalsArray = document.querySelectorAll('[data-role="modal"]');
+			var numModals = modalsArray.length;
+			for(var i=0; i< numModals; i++){
+				pages[modalsArray[i].getAttribute("id")] = modalsArray[i];
+
+				/* Each modal window contains cancel and save button. Add corresponding listeners */
+				var cancelBtn = modalsArray[i].querySelector('input[value="CANCEL"]');
+				var cancelBtnHammerManager = new Hammer(cancelBtn);
+				cancelBtnHammerManager.on('tap', handleCancelTap);
+
+				var saveBtn = modalsArray[i].querySelector('input[value="SAVE"]');
+				var saveBtnHammerManager = new Hammer(saveBtn);
+				saveBtnHammerManager.on('tap', handleSaveTap);
+
+			}
+			delete modalsArray; //Free the memory
 
 			doPageTransition(null, "people");
 
-			/* Add swipe left/right listeners to people/occaisions pages*/
+			/* Add swipe left/right listeners to people/occasions pages*/
 			var peopleHammerManger = new Hammer(pages["people"]);
 			peopleHammerManger.on('swipeleft', handleSwipe);
 
-			var occaisionsHammerManger = new Hammer(pages["occaisions"]);
-			occaisionsHammerManger.on('swiperight', handleSwipe);
+			var occasionsHammerManger = new Hammer(pages["occasions"]);
+			occasionsHammerManger.on('swiperight', handleSwipe);
 
-			/* Add tap/double tap event listeners to list view of contacts. */
-			var contactsListView = document.querySelector('ul[data-role="listview"]');
+			var backBtnsArray = document.querySelectorAll('svg[data-icon-name="back"]');
+			for(var i=0; i<backBtnsArray.length; i++){
+				var backBtnHammerManager = new Hammer(backBtnsArray[i]);
+				backBtnHammerManager.on('tap', handleBackButton);
+			}
 
-			/* Relate tap and double tap events to list view of contacts using hammer API */
-			var contactListHammerManager = new Hammer.Manager(contactsListView);
-
-			/* Create specifications for single tap and double tap events. */
-			var doubleTapEvent = new Hammer.Tap({ event: 'doubletap', taps: 2 }) ;
-			var singleTapEvent = new Hammer.Tap({ event: 'singletap', domEvents:true });
-
-			/* Add single/double tap events to hammer manager.*/
-			contactListHammerManager.add( doubleTapEvent );
-			contactListHammerManager.add( singleTapEvent);
-
-			/* we want to recognize single/double tap simulatenously. Otherwise single tap handler will be always triggered during double tap event.
-			So a double tap will be detected even a single tap has been recognized.*/
-			doubleTapEvent.recognizeWith('singletap');
-
-			/* we only want to trigger a tap, when we don't have detected a doubletap. */
-			singleTapEvent.requireFailure('doubletap');
-
-			/* register handler for single/double tap events. */
-			contactListHammerManager.on("doubletap", handleDoubleTap );
-			contactListHammerManager.on("singletap", handleSingleTap);
-
-			// var cancelBtnHammerManager = new Hammer( document.getElementById("btnCancel"));
-			// cancelBtnHammerManager.on('tap', handleCancelTap);
-
-			// var okBtnHammerManager = new Hammer( document.getElementById("btnOk"));
-			// okBtnHammerManager.on('tap', handleOkTap);
-
-			// var cancelBtnGPSHammerManager = new Hammer( document.getElementById("btnCancelGPS"));
-			// cancelBtnGPSHammerManager.on('tap', handleCancelTapForGPS);
-
-			// var settingsBtnGPSHammerManager = new Hammer( document.getElementById("btnSettingsGPS"));
-			// settingsBtnGPSHammerManager.on('tap', handleSettingsTapForGPS);
-
-			// okBtnHammerManager = new Hammer(document.getElementById("btnOkUserLoc"));
-			// okBtnHammerManager.on('tap', handleOkTap);
-
-			// var backBtnHammerManager = new Hammer(document.querySelector('svg[data-icon-name="back"]'));
-			// backBtnHammerManager.on('tap', handleBackButton);
-
-			// /* Wait until the trigger of current location request is timed-out.
-			// handle error case by showing a warning message to the user to open his GPS */
-			// setTimeout(mapDriver.loadMap, 3600);
+			var addBtnsArray = document.querySelectorAll('svg[data-icon-name="add"]');
+			for(var i=0; i<addBtnsArray.length; i++){
+				var addBtnHammerManager = new Hammer(addBtnsArray[i]);
+				addBtnHammerManager.on('tap', handleAddButton);
+			}
 		}
+
 		var handleSwipe = function(ev){
 			console.log(ev.type + " gesture detected");
 			var currentPageId = document.URL.split("#")[1];
-			console.log("currentPageId is :"+ currentPageId);
 
-			// var mainScreenHeader = document.querySelector('header.main-screen');
-			// var title = mainScreenHeader.querySelector('h2');
+			var outClass = 'pt-page-fadeOut';
 
 			switch(currentPageId){
 				case "people":
-					var destPageId = "occaisions";
-					var outClass = 'pt-page-fade';
+					var destPageId = "occasions";
 					var inClass = 'pt-page-moveFromRight pt-page-ontop';
 					break;
-				case "occaisions":
+				case "occasions":
 					var destPageId = "people";
-					var outClass = 'pt-page-fade';
 					var inClass = 'pt-page-moveFromLeft pt-page-ontop';
 					break;
 				default:
 					console.error("undefined page id");
 					return;
 			}
-			// title.innerHTML = destPageId;
+
 			doPageTransition(currentPageId, destPageId, outClass, inClass, false);
 		}
 
-		// var handleSettingsTapForGPS = function(ev){
-		// 				document.querySelector('#gps-modal-window').className = "hide";
-		// 				/* TODO: Show Device settings app.*/
-		// }
+		var handleCancelTap = function(ev){
+			removeModalWindow();
+		}
 
-		// var handleCancelTapForGPS = function(ev){
-		// 				document.querySelector('#gps-modal-window').className = "hide";
-		// }
+		var removeModalWindow = function(){
+			var destPageId = document.URL.split("#")[1];
+			// var currentPageId = document.querySelector('[data-role="modal"].pt-page-current');
+			pages[currentPageId].classList.add("pt-page-moveToBottom");
+			setTimeout(function(){
+				pages[currentPageId].classList.remove("pt-page-current");
+				pages[currentPageId].classList.remove("pt-page-moveToBottom");
+				currentPageId = destPageId;
+			}, 600);
+		}
 
-		// var handleCancelTap = handleOkTap = function(ev){
-		// 				if('btnOkUserLoc' === ev.target.getAttribute("id")){
-		// 								document.querySelector('#user-loc-modal-window').className = "hide";
-		// 				}else{
-		// 								document.querySelector('#contacts-modal-window').className = "hide";
-		// 				}
+		var handleSaveTap = function(ev){
+			/* TODO: update database properly. */
 
-		// }
+			removeModalWindow();
+		}
 
 		var handleDoubleTap = function(ev){
-			console.log("Double tap event has been recognized");
+			var currentPageId = document.URL.split("#")[1];
+			console.log("Double tap event has been recognized inside page:" + currentPageId);
 
 			/* Get which list item have been tapped. Since hammer.js does not have currentTarget property, a bubbling
 			* navigation must be done toward the parent element(s) to find out which contact has been double-tapped */
-			// var timeStamp1 = Date.now();
+
 			var currentTarget = ev.target;
-			var contactId = currentTarget.getAttribute("data-ref");
-			while(null === contactId){
+			var listItemId = currentTarget.getAttribute("data-ref");
+			while(null === listItemId){
 						currentTarget = currentTarget.parentNode;
-						contactId     = currentTarget.getAttribute("data-ref");
+						listItemId     = currentTarget.getAttribute("data-ref");
 			}
 
-			/* Make sure that we find a valid contanct list item */
-			if(contactId){
-						currentUserId = contactId;
-						/* TODO: remove item from listview and delete it from the database.*/
+			// /* Make sure that we find a valid contanct list item */
+			if(listItemId){
+				currentUserId = listItemId;
+				/* TODO: remove item from listview and delete it from the database.*/
 			}
 		}
 
 		var handleSingleTap = function(ev){
-			console.log("Single tap event has been recognized");
-			/* TODO: A single tap on a list item in the People or Occasion screens will open the
+
+			var currentPageId = document.URL.split("#")[1];
+			console.log("Single tap event has been recognized inside page:"+currentPageId);
+
+			/* A single tap on a list item in the People or Occasion screens will open the
 			screen for managing the gifts for the selected person or occasion.*/
 
 			/* TODO: A single tap on a gift idea will toggle the purchased status.
 			you will need to find a visual way to represent that status.*/
 
-			var contactModalWindow = document.querySelector('#contacts-modal-window');
+			// var contactModalWindow = document.querySelector('#contacts-modal-window');
 
-			/* display modal window that will display the contact's name as well as all phone numbers for that contact. */
 
-			/* Get which list item have been tapped. Since hammer.js does not have currentTarget property, a bubbling
-			* navigation must be done toward the parent element(s) to find out which contact has been tapped */
 
-			var currentTarget = ev.target;
-			var contactId = currentTarget.getAttribute("data-ref");
-			while(null === contactId){
-						currentTarget = currentTarget.parentNode;
-						contactId     = currentTarget.getAttribute("data-ref");
+			/* Get which list item have been tapped.*/
+			var listItem = ev.target;
+			console.debug(listItem);
+			var listItemId = listItem.getAttribute("data-ref");
+
+			/* Make sure that we find a valid list item */
+			if(listItemId){
+				switch (currentPageId){
+					case "people":
+						var destPageId = "gifts-per-person";
+						var outClass = "pt-page-scaleDown";
+						var inClass = "pt-page-scaleUp";
+
+						var subHeader = pages[destPageId].querySelector('.page-internal-wrapper h2');
+						subHeader.innerHTML = "Gifts for " + listItem.innerHTML;
+
+						doPageTransition(currentPageId,destPageId,outClass,inClass,true);
+						break;
+					case "occasions":
+						var destPageId = "gifts-per-occasion";
+						var outClass = "pt-page-scaleDown";
+						var inClass = "pt-page-scaleUp";
+
+						var subHeader = pages[destPageId].querySelector('.page-internal-wrapper h2');
+						subHeader.innerHTML = "Gifts for " + listItem.innerHTML;
+
+						doPageTransition(currentPageId,destPageId,outClass,inClass,true);
+						break;
+					default:
+						/*Do nothing*/
+				}
+			}else{
+				console.error("Failed to find valid list item id");
 			}
-
-			/* Make sure that we find a valid contanct list item */
-			if(contactId){
-				currentUserId = contactId;
-			}
-
-			contactModalWindow.className = "show";
-
 		}
 
 		var loadDynamicContents = function(pageId){
@@ -276,14 +308,6 @@ var appClass = function(){
 			// }
 		}
 
-		var animatePage = function(pg){
-			pg.classList.add("active-page");
-		}
-
-		var hidePage = function(pg){
-			pg.className = "hide";
-		}
-
 		//Deal with history API and switching divs
 		var doPageTransition = function( srcPageId, destPageId,
 										 outClass, inClass,
@@ -297,27 +321,39 @@ var appClass = function(){
 				loadDynamicContents(destPageId);
 				setTimeout(function(){
 						pages[destPageId].classList.remove("pt-page-fadeIn");
-				}, 1000); /* 0.6sec is the animation duration. */
+				}, 1000); /* 1sec is the animation duration. */
 				history.replaceState(null, null, "#"+destPageId);
 			}else{
 
-				pages[srcPageId].classList.add("pt-page-current");
+				// pages[srcPageId].classList.add("pt-page-current");
 				pages[destPageId].classList.add("pt-page-current");
-				pages[srcPageId].classList.add(outClass);
-				pages[destPageId].classList.add(inClass.split(" ")[0]);
-				pages[destPageId].classList.add(inClass.split(" ")[1]);
+				pages[srcPageId].className  += " "+outClass;
+				pages[destPageId].className += " "+inClass;
 
+				/* Get current styles for the destination page.*/
+				var style = window.getComputedStyle(pages[destPageId], null);
+
+				/* Get animation duration ( in millisecond )for the destination page.
+				Remove last character which is 's' then parse the number*/
+				var animationDuration = parseFloat(style.webkitAnimationDuration.slice(0,-1))* 1000;
+				/* Get animation delay ( in millisecond ) for the destination page.*/
+				var animationDelay = parseFloat(style.webkitAnimationDelay.slice(0,-1))* 1000;
+
+				// console.log(animationDuration);
 
 				loadDynamicContents(destPageId);
 
 				/* Wait for 30 msec before applying the animation of page transition. This gives the
 				browser time to update all the divs before applying the animation*/
 				setTimeout(function(){
-								pages[srcPageId].classList.remove("pt-page-current");
-								pages[srcPageId].classList.remove(outClass);
-								pages[destPageId].classList.remove(inClass.split(" ")[0]);
-								pages[destPageId].classList.remove(inClass.split(" ")[1]);
-				}, 600); /* 0.6sec is the animation duration. */
+					/* Remove pt-page-current class and outClass from source page.
+					Exception case: when displaying modal window, make sure to keep source page in the background*/
+					pages[srcPageId].className = outClass?"":"pt-page-current";
+					pages[destPageId].className = "pt-page-current";
+
+					// pages[destPageId].classList.remove(inClass.split(" ")[0]);
+					// pages[destPageId].classList.remove(inClass.split(" ")[1]);
+				}, animationDuration + animationDelay); /* 0.6sec is the animation duration. */
 
 				if (true === isHistoryPush)
 					history.pushState(null, null, "#" + destPageId);
@@ -333,12 +369,73 @@ var appClass = function(){
 		//Listener for the popstate event to handle the back button
 		var handleBackButton = function (ev){
 			ev.preventDefault();
-			var destPageId = "contacts";
-			var currentPageId = "location";
-			//update the visible data page.
-			// doPageTransition(currentPageId, destPageId, false);
+			var currentPageId = document.URL.split("#")[1];
+
+			switch (currentPageId){
+				case "gifts-per-person":
+					var destPageId = "people";
+					break;
+				case "gifts-per-occasion":
+					var destPageId = "occasions";
+					break;
+				default:
+					/*Do nothing*/
+			}
+			var outClass = "pt-page-scaleDown";
+			var inClass = "pt-page-scaleUp";
+
+			doPageTransition(currentPageId,destPageId,outClass,inClass,true);
 		}
 
+		var handleAddButton = function (ev){
+			var currentPageId = document.URL.split("#")[1];
+
+			switch (currentPageId){
+				case "people":
+					var destPageId = "add-person-or-occasion";
+					var title = "New Person";
+					var placeHolder = "new person";
+					break;
+				case "occasions":
+					var destPageId = "add-person-or-occasion";
+					var title = "New Occasion";
+					var placeHolder  = "new occasion";
+					break;
+				case "gifts-per-person":
+					var destPageId = "add-gift";
+
+					/* TODO: Get the name of the person from database.*/
+					var subHeader = pages[currentPageId].querySelector('.page-internal-wrapper h2');
+					/* Gifts for Person */
+					var re = /(Gifts for)\s+(.*)/;
+					var personName = subHeader.innerHTML.match(re)[2];
+					var title = "New Gift for "+ personName;
+					var placeHolder = "new gift idea";
+					break;
+				case "gifts-per-occasion":
+					/* TODO: Get the name of the occasion from database.*/
+					var destPageId = "add-gift";
+					/* TODO: Get the name of the person from database.*/
+					var subHeader = pages[currentPageId].querySelector('.page-internal-wrapper h2');
+					/* Gifts for Person */
+					var re = /(Gifts for)\s+(.*)/;
+					var occasionName = subHeader.innerHTML.match(re)[2];
+					var title = "New Gift for "+ occasionName;
+					var placeHolder = "new gift idea";
+					break;
+				default:
+					/*Do nothing*/
+			}
+			var outClass = "";
+			var inClass = "pt-page-moveFromBottom";
+
+			pages[destPageId].querySelector('h3').innerHTML = title;
+
+			var inputField = pages[destPageId].querySelector('input[type="text"]');
+			inputField.setAttribute("placeholder", placeHolder);
+
+			doPageTransition(currentPageId,destPageId,outClass,inClass);
+		}
 		var getCurrerntUserId = function(){
 			return currentUserId;
 		}

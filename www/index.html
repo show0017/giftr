@@ -14,7 +14,7 @@
 <div class="st-container">
 
 <!-- Header of main sections of the app.
-	This header structure of people/occaisions is typicall the same.
+	This header structure of people/occasions is typicall the same.
 	The only difference is svg and h2 title-->
 <!-- 	<header data-role="header" class="col-container clearfix main-screen">
         <div class="col-3 vertical-center horizontal-align">
@@ -31,15 +31,15 @@
     </header> -->
 
 	<!-- Header of detailed view screen.
-	This header structure of gifts per person/occaision is typically the same. The
+	This header structure of gifts per person/occasion is typically the same. The
 	only difference is contents of p.prev-screen-title -->
-	<header data-role="header" class="col-container clearfix secondary-screen hide">
+<!-- 	<header data-role="header" class="col-container clearfix secondary-screen hide">
         <div class="col-4 vertical-center horizontal-align">
             <svg data-icon-name="back" viewBox="0 0 216 216"></svg>
         </div>
 
         <div class="col-4 vertical-center">
-            <p class="prev-screen-title">Occaisions</p>
+            <p class="prev-screen-title">occasions</p>
         </div>
 
         <div class="col-4 vertical-center">
@@ -48,10 +48,10 @@
 		<div class="col-4 vertical-center">
             <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
         </div>
-    </header>
+    </header> -->
 
 	<!-- container for all pages -->
-	<section data-role="page" id="people" class="pt-page-current">
+	<section data-role="page" id="people" >
 		<header data-role="header" class="col-container clearfix main-screen">
 	        <div class="col-3 vertical-center horizontal-align">
 	            <svg data-icon-name="people" viewBox="0 0 216 216"></svg>
@@ -65,109 +65,152 @@
 	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
 	        </div>
     	</header>
-		<ul data-role="listview" >
-			<!--
-			TODO: list of items to be dynamically added
-			single-tap to add gift for person through gifts-for-person page
-			double-tap to remove person
-			-->
-			<li class="horizontal-align">person 1</li>
-			<li class="horizontal-align">person 2</li>
-			<li class="horizontal-align">person 3</li>
-			<li class="horizontal-align">person 4</li>
-			<li class="horizontal-align">person 5</li>
-		</ul>
+    	<div class="page-internal-wrapper">
+			<ul data-role="listview" >
+				<!--
+				TODO: list of items to be dynamically added
+				single-tap to add gift for person through gifts-for-person page
+				double-tap to remove person
+				-->
+				<li data-ref="1" class="horizontal-align">person 1</li>
+				<li data-ref="2" class="horizontal-align">person 2</li>
+				<li data-ref="3" class="horizontal-align">person 3</li>
+				<li data-ref="4" class="horizontal-align">person 4</li>
+				<li data-ref="5" class="horizontal-align">person 5</li>
+			</ul>
+		</div>
 	</section>
 
-	<section data-role="page" id="occaisions">
+	<section data-role="page" id="occasions">
 		<header data-role="header" class="col-container clearfix main-screen">
 	        <div class="col-3 vertical-center horizontal-align">
-	            <svg data-icon-name="occaisions" viewBox="0 0 216 216"></svg>
+	            <svg data-icon-name="occasions" viewBox="0 0 216 216"></svg>
 	        </div>
 
 	        <div class="col-3 vertical-center">
-	            <h2>Occaisions</h2>
+	            <h2>occasions</h2>
 	        </div>
 
 	        <div class="col-3 vertical-center">
 	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
 	        </div>
 	    </header>
-		<ul data-role="listview">
-			<!--
-			TODO: list of items to be dynamically added
-			single-tap to add gift for occaision through gifts-for-occaision page
-			double-tap to remove occaision
-			-->
-			<li class="horizontal-align">occaision 1</li>
-			<li class="horizontal-align">occaision 2</li>
-			<li class="horizontal-align">occaision 3</li>
-			<li class="horizontal-align">occaision 4</li>
-			<li class="horizontal-align">occaision 5</li>
-		</ul>
+
+	    <div class="page-internal-wrapper">
+			<ul data-role="listview">
+				<!--
+				TODO: list of items to be dynamically added
+				single-tap to add gift for occasion through gifts-for-occasion page
+				double-tap to remove occasion
+				-->
+				<li data-ref="1" class="horizontal-align">occasion 1</li>
+				<li data-ref="2" class="horizontal-align">occasion 2</li>
+				<li data-ref="3" class="horizontal-align">occasion 3</li>
+				<li data-ref="4" class="horizontal-align">occasion 4</li>
+				<li data-ref="5" class="horizontal-align">occasion 5</li>
+			</ul>
+		</div>
 	</section>
 
 	<section data-role="page" id="gifts-per-person">
+		<header data-role="header" class="col-container clearfix secondary-screen">
+	        <div class="col-4 vertical-center horizontal-align">
+	            <svg data-icon-name="back" viewBox="0 0 216 216"></svg>
+	        </div>
 
-		<div class="col-container clearfix">
-			<div class="col-2 horizontal-align">
-				<svg data-icon-name="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
+	        <div class="col-4 vertical-center">
+	            <p class="prev-screen-title">People</p>
+	        </div>
+
+	        <div class="col-4 vertical-center">
+	            <h2 class="main-screen-title">Gifts</h2>
+	        </div>
+			<div class="col-4 vertical-center">
+	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
+	        </div>
+	    </header>
+
+		<div class="page-internal-wrapper">
+
+			<div class="col-container clearfix">
+				<div class="col-2 horizontal-align">
+					<svg data-icon-name="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
+				</div>
+				<div class="col-2">
+					<h2 class="vertical-center">Gifts for Person x</h2>
+				</div>
 			</div>
-			<div class="col-2">
-				<h2 class="vertical-center">Gifts for Person x</h2>
-			</div>
+
+			<ul data-role="listview">
+				<!--
+				TODO: list of items to be dynamically added
+				single-tap gift idea to toggle purchased state for gift
+					double-tap gift idea to remove from list
+				-->
+				<li data-ref="1" class="horizontal-align">Gift1 - occasion 1</li>
+				<li data-ref="2" class="horizontal-align">Gift2 - occasion 1</li>
+				<li data-ref="3" class="horizontal-align">Gift3 - occasion 2</li>
+				<li data-ref="4" class="horizontal-align">Gift4 - occasion 4</li>
+				<li data-ref="5" class="horizontal-align">Gift5 - occasion 4</li>
+			</ul>
 		</div>
-
-		<ul data-role="listview">
-			<!--
-			TODO: list of items to be dynamically added
-			single-tap gift idea to toggle purchased state for gift
-				double-tap gift idea to remove from list
-			-->
-			<li class="horizontal-align">Gift1 - occaision 1</li>
-			<li class="horizontal-align">Gift2 - occaision 1</li>
-			<li class="horizontal-align">Gift3 - occaision 2</li>
-			<li class="horizontal-align">Gift4 - occaision 4</li>
-			<li class="horizontal-align">Gift5 - occaision 4</li>
-		</ul>
 	</section>
 
 	<!-- This page structure is typically the same to gift-per-person-page. The
 	only difference is h2 tag contents -->
 	<section data-role="page" id="gifts-per-occasion">
-		<div class="col-container clearfix">
-			<div class="col-2 horizontal-align">
-				<svg data-icon-name="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
-			</div>
-			<div class="col-2">
-				<h2 class="vertical-center">Gifts for Occaision x</h2>
-			</div>
-		</div>
+		<header data-role="header" class="col-container clearfix secondary-screen">
+	        <div class="col-4 vertical-center horizontal-align">
+	            <svg data-icon-name="back" viewBox="0 0 216 216"></svg>
+	        </div>
 
-		<ul data-role="listview">
-			<!--
-			TODO: list of items to be dynamically added
-			single-tap gift idea to toggle purchased state for gift
-			double-tap gift idea to remove from list
-			-->
-			<li class="horizontal-align">Gift1 - Person 1</li>
-			<li class="horizontal-align">Gift2 - Person 1</li>
-			<li class="horizontal-align">Gift3 - Person 2</li>
-			<li class="horizontal-align">Gift4 - Person 3</li>
-			<li class="horizontal-align">Gift5 - Person 3</li>
-		</ul>
+	        <div class="col-4 vertical-center">
+	            <p class="prev-screen-title">occasions</p>
+	        </div>
+
+	        <div class="col-4 vertical-center">
+	            <h2 class="main-screen-title">Gifts</h2>
+	        </div>
+			<div class="col-4 vertical-center">
+	            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
+	        </div>
+	    </header>
+
+		<div class="page-internal-wrapper">
+			<div class="col-container clearfix">
+				<div class="col-2 horizontal-align">
+					<svg data-icon-name="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
+				</div>
+				<div class="col-2">
+					<h2 class="vertical-center">Gifts for occasion x</h2>
+				</div>
+			</div>
+
+			<ul data-role="listview">
+				<!--
+				TODO: list of items to be dynamically added
+				single-tap gift idea to toggle purchased state for gift
+				double-tap gift idea to remove from list
+				-->
+				<li data-ref="1" class="horizontal-align">Gift1 - Person 1</li>
+				<li data-ref="2" class="horizontal-align">Gift2 - Person 1</li>
+				<li data-ref="3" class="horizontal-align">Gift3 - Person 2</li>
+				<li data-ref="4" class="horizontal-align">Gift4 - Person 3</li>
+				<li data-ref="5" class="horizontal-align">Gift5 - Person 3</li>
+			</ul>
+		</div>
 	</section>
 
-<!-- Modal window for addition of new person/occaision is typically the same except
+<!-- Modal window for addition of new person/occasion is typically the same except
 	the title and placeholder  -->
-	<section data-role="modal" class="hide" id="add-person-occaision-modal-window">
+	<section data-role="modal" id="add-person-or-occasion">
 		<div data-role="overlay">&nbsp;</div>
-		<!-- modal for adding an entry to person or occasion table -->
-		<div data-role="modal-details" id="add-person-occasion">
-			<h3>Title (new person | occasion)</h3>
+		<!-- modal for adding an entry to person or occasion -->
+		<div data-role="modal-details" >
+			<h3>New( person | occasion)</h3>
 			<form>
 				<div class="formBox">
-					<input type="text" id="new-per-occ" value="" placeholder="person name" class=""/>
+					<input type="text" value="" placeholder="person name" class=""/>
 				</div>
 				<div class="formBox">
 					<input type="button" class="btn" value="CANCEL" />
@@ -177,25 +220,25 @@
 		</div>
 	</section>
 
-<!-- Modal window for addition of new gift per person/occaision is typicall the same except
+<!-- Modal window for addition of new gift per person/occasion is typicall the same except
 	the title and list picker items -->
-	<section data-role="modal" class="hide" id="add-gift-modal-window">
+	<section data-role="modal" id="add-gift">
 		<div data-role="overlay">&nbsp;</div>
 		<!-- modal for adding an entry to gift idea table. Requires a person or occasion plus the idea -->
-		<div data-role="modal-details" id="add-gift">
-			<h3>Title (new gift for person | occasion)</h3>
+		<div data-role="modal-details">
+			<h3>New Gift for (person | occasion)</h3>
 			<form>
 				<div class="formBox">
-					<select id="list-per-occ">
-						<option value="0">Choose one</option>
-						list of options built from person list or occasion list
+					<select data-role="dropdown-menu" id="dropdwon-person-or-occasion">
+						<option value="0">Choose person</option>
+						<!-- TODO: list of options built from person list or occasion list -->
 						<option value="1">Person 1</option>
 						<option value="2">Person 2</option>
 						<option value="3">Person 3</option>
 					</select>
 				</div>
 				<div class="formBox">
-					<input type="text" id="new-idea" value="" placeholder="" class=""/>
+					<input type="text" value="" placeholder="new idea idea" class=""/>
 				</div>
 				<div class="formBox">
 					<input type="button" class="btn" value="CANCEL" />
