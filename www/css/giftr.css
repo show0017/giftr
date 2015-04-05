@@ -193,7 +193,7 @@ svg[data-icon-name="back"] g *{
   fill : hsla(69, 100%, 73%, 0.93);
 }
 
-svg[data-icon-name="gift"]{
+svg[data-icon="gift"]{
     box-sizing: content-box;
     padding-bottom:7px;
 }
