@@ -318,10 +318,12 @@ var appClass = function(){
 				//home page first call
 				pages[destPageId].classList.add("pt-page-current");
 				pages[destPageId].classList.add("pt-page-fadeIn");
+				prepareSvgAnimation(destPageId);
 				loadDynamicContents(destPageId);
 				setTimeout(function(){
 					pages[destPageId].classList.remove("pt-page-fadeIn");
-					rotateAddButton(destPageId);
+					rotateSvgs(destPageId);
+					animateSVGs(destPageId);
 				}, 1000); /* 1sec is the animation duration. */
 				history.replaceState(null, null, "#"+destPageId);
 			}else{
@@ -330,6 +332,8 @@ var appClass = function(){
 				pages[destPageId].classList.add("pt-page-current");
 				pages[srcPageId].className  += " "+outClass;
 				pages[destPageId].className += " "+inClass;
+
+				prepareSvgAnimation(destPageId);
 
 				/* Get current styles for the destination page.*/
 				var style = window.getComputedStyle(pages[destPageId], null);
@@ -351,7 +355,8 @@ var appClass = function(){
 					Exception case: when displaying modal window, make sure to keep source page in the background*/
 					pages[srcPageId].className = outClass?"":"pt-page-current";
 					pages[destPageId].className = "pt-page-current";
-					rotateAddButton(destPageId);
+					rotateSvgs(destPageId);
+					animateSVGs(destPageId);
 					// pages[destPageId].classList.remove(inClass.split(" ")[0]);
 					// pages[destPageId].classList.remove(inClass.split(" ")[1]);
 				}, animationDuration + animationDelay); /* 0.6sec is the animation duration. */
@@ -441,13 +446,146 @@ var appClass = function(){
 			return currentUserId;
 		}
 
-		var rotateAddButton = function(pageId){
-			var addBtn = pages[pageId].querySelector('svg[data-icon-name="add"]');
+		var rotateSvgs = function(pageId){
+			var addBtn  = pages[pageId].querySelector('svg[data-icon-name="add"]');
+			var backBtn = pages[pageId].querySelector('svg[data-icon-name="back"]');
 			if(addBtn){
 				addBtn.classList.add("rotate");
-				setTimeout(function(){addBtn.classList.remove("rotate");}, 1000);
+				setTimeout(function(){addBtn.classList.remove("rotate");}, 600);
+			}
+
+			if(backBtn){
+				backBtn.classList.add("rotate");
+				setTimeout(function(){backBtn.classList.remove("rotate");}, 600);
 			}
 		}
+
+
+		function fillSvgPath(myPath){
+			return function(){
+					setTimeout(function(){
+						myPath.style.fill="hsl(69,54%,21%)";
+						myPath.style.stroke = "#FFFFFF";
+						if(("middle-vertical" == myPath.getAttribute("id")) ||
+								 ("top-horizontal"  == myPath.getAttribute("id")) ){
+								myPath.style.strokeWidth = "5.953";
+						}
+					},2000);
+			};
+		}
+
+		var animateSVGs = function(pageId){
+			switch(pageId){
+				case "people":
+					var svgPeople = pages[pageId].querySelector('svg[data-icon-name="people"]');
+					svgPeople.classList.add("show");
+
+					var leftPerson = pages[pageId].querySelector('#left-person');
+					var rightPerson = pages[pageId].querySelector('#right-person');
+					leftPerson.classList.add("pt-page-moveFromTop");
+					rightPerson.classList.add("pt-page-moveFromBottom");
+
+					setTimeout(function(){
+						svgPeople.classList.remove("hide");
+						svgPeople.classList.remove("show");
+
+						leftPerson.classList.remove("pt-page-moveFromTop");
+						rightPerson.classList.remove("pt-page-moveFromBottom");
+					}, 600);
+					break;
+				case "occasions":
+					var svgOccasions = pages[pageId].querySelector('svg[data-icon-name="occasions"]');
+					svgOccasions.classList.add("show");
+
+					var ballonStrings = pages[pageId].querySelectorAll('.string');
+					for(var i=0; i<ballonStrings.length; i++)
+						ballonStrings[i].classList.add("pt-page-moveFromBottom");
+					var ballonUpperParts = pages[pageId].querySelectorAll('.ballon-upper');
+					for(var i=0; i<ballonUpperParts.length; i++)
+						ballonUpperParts[i].classList.add("pt-page-moveFromTop");
+
+					setTimeout(function(){
+						svgOccasions.classList.remove("hide");
+						svgOccasions.classList.remove("show");
+
+						for(var i=0; i<ballonStrings.length; i++)
+							ballonStrings[i].classList.remove("pt-page-moveFromBottom");
+						for(var i=0; i<ballonUpperParts.length; i++)
+							ballonUpperParts[i].classList.remove("pt-page-moveFromTop");
+					}, 600);
+					break;
+
+				case "gifts-per-person":
+				case "gifts-per-occasion":
+					 var svgGift = pages[pageId].querySelector('svg[data-icon="gift"]');
+
+
+					 var paths = svgGift.querySelectorAll('path');
+					 for(var i=0; i< paths.length; i++){
+						 var path = paths[i];
+
+
+						// Trigger a layout so styles are calculated & the browser
+						// picks up the starting position before animating
+						path.getBoundingClientRect();
+						// Define our transition
+						path.style.transition = path.style.WebkitTransition =
+								'stroke-dashoffset 2s ease-in-out';
+						// Go!
+						path.style.strokeDashoffset = '0';
+
+						fillSvgPath(path)();
+					}
+
+
+
+
+					break;
+			}
+		}
+
+		var prepareSvgAnimation = function(pageId){
+			switch(pageId){
+				case "people":
+					var svgPeople = pages[pageId].querySelector('svg[data-icon-name="people"]');
+					svgPeople.classList.add("hide");
+					break;
+				case "occasions":
+					var svgOccasions = pages[pageId].querySelector('svg[data-icon-name="occasions"]');
+					svgOccasions.classList.add("hide");
+					break;
+				case "gifts-per-person":
+				case "gifts-per-occasion":
+					var svgGift = pages[pageId].querySelector('svg[data-icon="gift"]');
+					Snap.load("svg/gift.svg", function(fragment){
+						var group = fragment.select( 'g' );
+						console.log(group);
+
+						var paths = fragment.selectAll("path");
+
+						for(var i=0; i< paths.length; i++){
+							var path = paths[i];
+							//console.log(path);
+							var length = path.getTotalLength();
+							// Clear any previous transition
+							// path.style.transition = path.style.WebkitTransition =
+							// 		'none';
+							path.attr({ "transition":"none",
+										"WebkitTransition": "none",
+										"strokeDasharray" : length + ' ' + length,
+										"strokeDashoffset": length
+									  });
+						}
+
+						var snapCanvas = Snap( svgGift );
+						snapCanvas.append(group);
+
+					});
+
+					break;
+			}
+		}
+
 		return {
 					init : init,
 					handleBackButton: handleBackButton,

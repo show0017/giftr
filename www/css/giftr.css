@@ -156,13 +156,15 @@ header .prev-screen-title{
 }
 /* SVG Icons styling
 =============================================================*/
-svg[data-icon-name]{
+svg[data-icon-name],
+svg[data-icon]{
     width: 32px;
     height: 32px;
 }
 
 svg[data-icon-name] g *{
     fill: hsl(69,45%,82%);
+    stroke: hsl(69,54%,21%);
 }
 
 svg[data-icon-name="add"] g .outer-line{
@@ -200,9 +202,34 @@ svg[data-icon-name="gift"] g *{
     fill: hsl(69,54%,21%);
 }
 
+/* Animation properties for svgs*/
 #add{
     transform-origin: 108px 108px;
     -webkit-transform-origin: 108px 108px;
+}
+
+#occasions{
+  position: absolute;
+}
+
+.string{
+  position: absolute;
+}
+
+.ballon-upper{
+  position: absolute;
+}
+
+#people{
+  position: absolute;
+}
+
+#left-person{
+  position: absolute;
+}
+
+#right-person{
+  position: absolute;
 }
 
 /* Overlay and Modal window
@@ -366,13 +393,14 @@ input, select{
     opacity: 1;
 }
 
+.hide{
+  visibility: hidden;
+}
+
 .show{
     visibility: visible;
 }
 
-.hide{
-  display:none;
-}
 
 /* Sticky Footer styling
 ===============================================================*/
