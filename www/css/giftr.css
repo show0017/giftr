@@ -405,7 +405,7 @@ input, select{
  }
 
 .pt-page-ontop {
-  z-index: 999;
+  z-index: 10;
 }
 
 .active-page{
