@@ -18,6 +18,11 @@
 	animation: moveFromRight .6s ease both;
 }
 
+.pt-page-moveToLeft {
+	-webkit-animation: moveToLeft .6s ease both;
+	animation: moveToLeft .6s ease both;
+}
+
 .pt-page-scaleDown {
 	-webkit-animation: scaleDown .8s ease both;
 	animation: scaleDown .8s ease both;
@@ -82,6 +87,17 @@
 @keyframes moveFromRight {
 	from { -webkit-transform: translateX(100%); transform: translateX(100%); }
 }
+
+
+@-webkit-keyframes moveToLeft {
+	from { }
+	to { -webkit-transform: translateX(-100%); }
+}
+@keyframes moveToLeft {
+	from { }
+	to { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
 
 @-webkit-keyframes scaleDown {
 	from { }

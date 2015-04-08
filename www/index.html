@@ -5,50 +5,14 @@
     <title>GIFTR</title>
     <link rel="stylesheet" type="text/css" href="css/animations.css">
 	<link rel="stylesheet" type="text/css" href="css/giftr.css" />
-	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/snap.svg.js"></script>
+	<script type="text/javascript" src="js/debug-websql.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
 	<script type="text/javascript" src="js/hammer.min.js"></script>
 	<script type="text/javascript" src="js/giftr.js"></script>
 </head>
 <body class="flexible-font">
 <div class="st-container">
-
-<!-- Header of main sections of the app.
-	This header structure of people/occasions is typicall the same.
-	The only difference is svg and h2 title-->
-<!-- 	<header data-role="header" class="col-container clearfix main-screen">
-        <div class="col-3 vertical-center horizontal-align">
-            <svg data-icon-name="people" viewBox="0 0 216 216"></svg>
-        </div>
-
-        <div class="col-3 vertical-center">
-            <h2>People</h2>
-        </div>
-
-        <div class="col-3 vertical-center">
-            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
-        </div>
-    </header> -->
-
-	<!-- Header of detailed view screen.
-	This header structure of gifts per person/occasion is typically the same. The
-	only difference is contents of p.prev-screen-title -->
-<!-- 	<header data-role="header" class="col-container clearfix secondary-screen hide">
-        <div class="col-4 vertical-center horizontal-align">
-            <svg data-icon-name="back" viewBox="0 0 216 216"></svg>
-        </div>
-
-        <div class="col-4 vertical-center">
-            <p class="prev-screen-title">occasions</p>
-        </div>
-
-        <div class="col-4 vertical-center">
-            <h2 class="main-screen-title">Gifts</h2>
-        </div>
-		<div class="col-4 vertical-center">
-            <svg data-icon-name="add" viewBox="0 0 216 216"></svg>
-        </div>
-    </header> -->
 
 	<!-- container for all pages -->
 	<section data-role="page" id="people" >
@@ -72,11 +36,6 @@
 				single-tap to add gift for person through gifts-for-person page
 				double-tap to remove person
 				-->
-				<li data-ref="1" class="horizontal-align">person 1</li>
-				<li data-ref="2" class="horizontal-align">person 2</li>
-				<li data-ref="3" class="horizontal-align">person 3</li>
-				<li data-ref="4" class="horizontal-align">person 4</li>
-				<li data-ref="5" class="horizontal-align">person 5</li>
 			</ul>
 		</div>
 	</section>
@@ -103,11 +62,7 @@
 				single-tap to add gift for occasion through gifts-for-occasion page
 				double-tap to remove occasion
 				-->
-				<li data-ref="1" class="horizontal-align">occasion 1</li>
-				<li data-ref="2" class="horizontal-align">occasion 2</li>
-				<li data-ref="3" class="horizontal-align">occasion 3</li>
-				<li data-ref="4" class="horizontal-align">occasion 4</li>
-				<li data-ref="5" class="horizontal-align">occasion 5</li>
+
 			</ul>
 		</div>
 	</section>
@@ -134,10 +89,10 @@
 
 			<div class="col-container clearfix">
 				<div class="col-2 horizontal-align">
-					<svg data-icon="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
+					<svg data-icon-animate="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
 				</div>
 				<div class="col-2">
-					<h2 class="vertical-center">Gifts for Person x</h2>
+					<h2 class="vertical-center" data-ref="13">Gifts for Person x</h2>
 				</div>
 			</div>
 
@@ -147,11 +102,6 @@
 				single-tap gift idea to toggle purchased state for gift
 					double-tap gift idea to remove from list
 				-->
-				<li data-ref="1" class="horizontal-align">Gift1 - occasion 1</li>
-				<li data-ref="2" class="horizontal-align">Gift2 - occasion 1</li>
-				<li data-ref="3" class="horizontal-align">Gift3 - occasion 2</li>
-				<li data-ref="4" class="horizontal-align">Gift4 - occasion 4</li>
-				<li data-ref="5" class="horizontal-align">Gift5 - occasion 4</li>
 			</ul>
 		</div>
 	</section>
@@ -179,10 +129,10 @@
 		<div class="page-internal-wrapper">
 			<div class="col-container clearfix">
 				<div class="col-2 horizontal-align">
-					<svg data-icon="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
+					<svg data-icon-animate="gift" class="vertical-center" viewBox="0 0 216 216"></svg>
 				</div>
 				<div class="col-2">
-					<h2 class="vertical-center">Gifts for occasion x</h2>
+					<h2 class="vertical-center" data-ref="33">Gifts for occasion x</h2>
 				</div>
 			</div>
 
@@ -192,11 +142,6 @@
 				single-tap gift idea to toggle purchased state for gift
 				double-tap gift idea to remove from list
 				-->
-				<li data-ref="1" class="horizontal-align">Gift1 - Person 1</li>
-				<li data-ref="2" class="horizontal-align">Gift2 - Person 1</li>
-				<li data-ref="3" class="horizontal-align">Gift3 - Person 2</li>
-				<li data-ref="4" class="horizontal-align">Gift4 - Person 3</li>
-				<li data-ref="5" class="horizontal-align">Gift5 - Person 3</li>
 			</ul>
 		</div>
 	</section>
@@ -210,7 +155,7 @@
 			<h3>New( person | occasion)</h3>
 			<form>
 				<div class="formBox">
-					<input type="text" value="" placeholder="person name" class=""/>
+					<input type="text" value="" id="new-person-or-occasion" placeholder="person name" class=""/>
 				</div>
 				<div class="formBox">
 					<input type="button" class="btn" value="CANCEL" />
@@ -230,15 +175,11 @@
 			<form>
 				<div class="formBox">
 					<select data-role="dropdown-menu" id="dropdwon-person-or-occasion">
-						<option value="0">Choose person</option>
-						<!-- TODO: list of options built from person list or occasion list -->
-						<option value="1">Person 1</option>
-						<option value="2">Person 2</option>
-						<option value="3">Person 3</option>
+						<option value="0" selected="selected">Choose (person|occasion)</option>
 					</select>
 				</div>
 				<div class="formBox">
-					<input type="text" value="" placeholder="new idea idea" class=""/>
+					<input type="text" value="" id="new-gift-idea" placeholder="new idea idea" class=""/>
 				</div>
 				<div class="formBox">
 					<input type="button" class="btn" value="CANCEL" />

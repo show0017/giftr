@@ -157,7 +157,7 @@ header .prev-screen-title{
 /* SVG Icons styling
 =============================================================*/
 svg[data-icon-name],
-svg[data-icon]{
+svg[data-icon-animate]{
     width: 32px;
     height: 32px;
 }
@@ -193,14 +193,28 @@ svg[data-icon-name="back"] g *{
   fill : hsla(69, 100%, 73%, 0.93);
 }
 
-svg[data-icon="gift"]{
+svg[data-icon-animate="gift"]{
     box-sizing: content-box;
     padding-bottom:7px;
 }
 
-svg[data-icon-name="gift"] g *{
-    fill: hsl(69,54%,21%);
+svg[data-icon-animate="checkmark"]{
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 3.2%;
+  top: 28%;
+  fill: none;
 }
+
+svg[data-icon-animate="checkmark"].checked g *{
+  fill:hsl(69,54%,21%);
+  stroke:hsla(69, 100%, 73%, 0.93);
+}
+
+/*svg[data-icon-animate="gift"] g *{
+    fill: hsl(69,54%,21%);
+}*/
 
 /* Animation properties for svgs*/
 #add{
@@ -335,7 +349,7 @@ input, select{
 /* Common Pages styling
 =============================================================*/
 [data-role="page"]{
-    overflow: hidden;
+    /*overflow: hidden;*/
     visibility: hidden;
     /*display: none;*/
     position: absolute;
@@ -371,6 +385,7 @@ input, select{
   background-color: hsl(69, 48%, 71%);
   font-weight:300;
   cursor:pointer;
+  position: relative;
 }
 
 [data-role="listview"] li:nth-child(even){
@@ -379,6 +394,10 @@ input, select{
 
 [data-role="listview"] li:hover{
     background-color: hsla(69, 54%, 21% , 0.5);
+}
+
+[data-role="listview"] li:last-child{
+  margin-bottom: 60px; /* same height as the footer*/
 }
 
 .pt-page-current{
@@ -401,6 +420,41 @@ input, select{
     visibility: visible;
 }
 
+/* CheckBox
+===============================================================*/
+label {
+  display: inline-block;
+  position: relative;
+  font-size: 1.3rem;
+  padding: 0 0 0 80px;
+  color: hsl(69,54%,21%);
+  cursor: pointer;
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+input[type="checkbox"],
+label::before {
+  width: 24px;
+  height: 24px;
+  top: 25%;
+  left: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+input[type="checkbox"]{
+  -webkit-appearance: none;
+  display: inline-block;
+  z-index: 100;
+}
+
+label::before {
+  content: '';
+  border: 2px solid hsl(69,54%,21%);
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
 
 /* Sticky Footer styling
 ===============================================================*/
