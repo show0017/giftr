@@ -4,7 +4,7 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
+    <author email="show0017@algonquinlive.com" href="http://cordova.io">
         Apache Cordova Team
     </author>
     <content src="index.html" />
@@ -15,6 +15,8 @@
 	    <preference name="StatusBarOverlaysWebView" value="false" />
 		<preference name="StatusBarBackgroundColor" value="#4A5219" />
 		<preference name="StatusBarStyle" value="lightcontent" />
+
+        <icon src="./www/img/app_icon.png" width="120" height="120"/>
 	</platform>
 
 </widget>
